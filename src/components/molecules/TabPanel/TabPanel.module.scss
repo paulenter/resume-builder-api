@@ -1,0 +1,33 @@
+@use '../../../assets/style/variables.scss' as *;
+
+.list {
+  &__wrap {
+    position: fixed;
+    margin-left: 56px;
+    width: 250px;
+    height: 100vh;
+    background-color: $bg-sidebar;
+    z-index: 2;
+    color: #aaa;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0 6px;
+    height: 48px;
+    width: 95%;
+    background: $bg-sidebar-title;
+  }
+
+  &__close-btn {
+    padding: 0 !important;
+    margin-right: 4px !important;
+  }
+}
+
+.tab {
+  min-width: 30px !important;
+}

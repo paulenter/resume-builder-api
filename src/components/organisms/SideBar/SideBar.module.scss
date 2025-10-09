@@ -1,0 +1,25 @@
+@use '../../../assets/style/variables.scss' as *;
+
+.sidebar {
+  position: fixed;
+  z-index: 2;
+  height: 100vh;
+  background-color: #333;
+
+  & > div > span {
+    left: 0;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__listitem {
+    margin: 4px 0 0 4px;
+  }
+}
+
+.tab {
+  min-width: 30px !important;
+}

@@ -1,0 +1,105 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modalNone {
+  display: none;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 20px;
+  width: 60%;
+  height: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modalTitle {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0 15px 50px;
+}
+
+.modalTitle span {
+  font-size: 24px;
+}
+
+.close {
+  background-color: #fff;
+  float: right;
+}
+.closeImg {
+  width: 24px;
+  height: 24px;
+}
+
+.dateSelect {
+  display: flex;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.modalMain {
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  .modalMainForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+  }
+}
+
+.counter {
+  align-self: center;
+  font-size: 18px;
+  margin: 20px auto;
+  border-radius: 4px;
+}
+td {
+  padding: 0 10px;
+}
+.modalButton {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 68%;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 18px;
+}
+
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.int {
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 1;
+}
