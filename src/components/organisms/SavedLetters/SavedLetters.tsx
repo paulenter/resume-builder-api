@@ -95,26 +95,9 @@ const SavedLetters = () => {
                 backgroundColor: "#f5f5f5",
               }}
             >
-<DefaultButton
+              <DefaultButton
                 onClick={() => {
-                  createTemplate({
-                    id: "any-unique-id", // UUID или строка
-                    content: {
-                      id: "content-id", // обязательное поле
-                      height: 30, // обязательное поле
-                      elements: {
-                        activeElements: [], // может быть пустым массивом
-                      },
-                      layout: {
-                        // обязательное поле
-                        i: null,
-                        w: 6,
-                        h: 2,
-                        x: 0,
-                        y: 0,
-                      },
-                    },
-                  });
+                  createTemplate(containerSaveLetters.find((el) => el.id === container.id));
                 }}
                 label="Add on Templete"
               />
