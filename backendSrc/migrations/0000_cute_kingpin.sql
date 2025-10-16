@@ -5,6 +5,6 @@ CREATE TABLE `posts_table` (
 );
 
 CREATE TABLE templates_table (
-  id TEXT PRIMARY KEY,
   content TEXT NOT NULL
+  id TEXT PRIMARY KEY,
 );
