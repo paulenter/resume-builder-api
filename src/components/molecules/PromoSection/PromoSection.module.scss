@@ -1,0 +1,32 @@
+@use "../../molecules/DefaultContainer/DefaultContainer.scss" as *;
+@use "../../atoms/MainTitle/MainTitle.scss" as *;
+@use "../../atoms/DefaultSubTitle/DefaultSubTitle.scss" as *;
+@use "../../../assets/style/variables.scss" as *;
+@use "../../atoms/BackgroundLayoutDark/BackgroundLayoutDark.scss" as *;
+
+.promo {
+  &-content-wrapper {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+  }
+  &-buttons-wrapper {
+    & button {
+      margin-right: 20px;
+    }
+  }
+  &-image {
+    width: 400px;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 100px;
+  margin-bottom: 40px;
+}
+
+.default-subtitle {
+  margin-top: 150px;
+}

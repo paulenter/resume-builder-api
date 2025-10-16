@@ -1,0 +1,48 @@
+@use "@assets/style/variables.scss" as *;
+
+.tools-panel-left {
+  z-index: 3;
+
+  & > button {
+    padding: 5px;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $bg-static-light;
+      border-radius: 50%;
+    }
+
+    & > svg {
+      font-size: 1.25rem;
+    }
+  }
+}
+.tools-panel-right {
+  z-index: 3;
+
+  & > button {
+    padding: 5px;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $bg-static-light;
+      border-radius: 50%;
+    }
+
+    & > svg {
+      font-size: 1.25rem;
+    }
+  }
+}
+.element-container {
+  display: flex;
+  position: absolute;
+  left: 1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: auto;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
