@@ -76,10 +76,30 @@ export class CreateTemplateApi extends OpenAPIRoute {
 
       const templateId = id ?? crypto.randomUUID();
 
-      await db.insert(templatesTable).values({
-        id: templateId,
-        content: contentForDb,
-      });
+      // Ограничим размер записываемого контента (защитимся от слишком больших payloads)
+      const maxBytes = 900 * 1024; // ~900KB запасом до 1MB
+      if (new Blob([contentForDb]).size > maxBytes) {
+        return Response.json(
+          { error: "Payload too large", details: "content exceeds size limit" },
+          { status: 413 },
+        );
+      }
+
+      // Явная вставка через D1 prepare + bind, чтобы избежать странностей драйвера
+      try {
+        await env.DB.prepare("INSERT INTO templates_table (id, content) VALUES (?, ?)")
+          .bind(templateId, contentForDb)
+          .run();
+      } catch (e) {
+        const message = (e as Error)?.message ?? String(e);
+        if (/unique constraint failed|UNIQUE constraint failed/i.test(message)) {
+          return Response.json(
+            { error: "Duplicate id", details: "Template with this id already exists" },
+            { status: 409 },
+          );
+        }
+        throw e;
+      }
 
       const result = await env.DB.prepare("SELECT * FROM templates_table WHERE id = ?")
         .bind(templateId)
