@@ -3,6 +3,8 @@ import { GetTemplatesApi } from "./api/getTemplates";
 import { CreateTemplateApi } from "./api/createTemplates";
 
 export default function registerTemplateRoutes(router: RouterType) {
+  router.get("/api/template", GetTemplatesApi);
   router.get("/api/template/", GetTemplatesApi);
+  router.get("/api/template/:id", GetTemplatesApi);
   router.post("/api/template/", CreateTemplateApi);
 }
