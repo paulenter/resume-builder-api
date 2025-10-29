@@ -51,7 +51,26 @@ export class CreateTemplateApi extends OpenAPIRoute {
       const body = await request.json();
       const { id, content } = RequestSchema.parse(body);
 
-      const contentForDb = JSON.stringify(content)
+      // Remove heavy/unsafe fields to avoid oversized payloads and scripts
+      const sanitize = (value: unknown): unknown => {
+        if (Array.isArray(value)) {
+          return value.map(sanitize);
+        }
+        if (value && typeof value === "object") {
+          const input = value as Record<string, unknown>;
+          const output: Record<string, unknown> = {};
+          for (const [k, v] of Object.entries(input)) {
+            if (k === "elementScript") continue;
+            output[k] = sanitize(v);
+          }
+          return output;
+        }
+        return value;
+      };
+
+      const sanitizedContent = sanitize(content);
+
+      const contentForDb = JSON.stringify(sanitizedContent)
         .replace(/<script>/g, "&lt;script&gt;")
         .replace(/<\/script>/g, "&lt;/script&gt;");
 
@@ -72,7 +91,7 @@ export class CreateTemplateApi extends OpenAPIRoute {
 
       return Response.json(result, { status: 201 });
     } catch (error) {
-      console.error(error);
+      console.error("CreateTemplateApi error:", error);
 
       if (error instanceof z.ZodError) {
         return Response.json(
@@ -82,7 +101,7 @@ export class CreateTemplateApi extends OpenAPIRoute {
       }
 
       return Response.json(
-        { error: "Internal server error", details: String(error) },
+        { error: "Internal server error", details: (error as Error)?.message ?? String(error) },
         { status: 500 },
       );
     }
