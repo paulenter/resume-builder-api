@@ -76,19 +76,20 @@ export class CreateTemplateApi extends OpenAPIRoute {
 
       const templateId = id ?? crypto.randomUUID();
 
-      // Ограничим размер записываемого контента (защитимся от слишком больших payloads)
+      // ограничение размера
       const maxBytes = 900 * 1024; // ~900KB запасом до 1MB
-      if (new Blob([contentForDb]).size > maxBytes) {
+      const contentBytes = new TextEncoder().encode(contentForDb).length;
+      if (contentBytes > maxBytes) {
         return Response.json(
           { error: "Payload too large", details: "content exceeds size limit" },
           { status: 413 },
         );
       }
 
-      // Явная вставка через D1 prepare + bind, чтобы избежать странностей драйвера
+      // вставка через D1 prepare + bind
       try {
         await env.DB.prepare("INSERT INTO templates_table (id, content) VALUES (?, ?)")
-          .bind(templateId, contentForDb)
+          .bind(String(templateId), String(contentForDb))
           .run();
       } catch (e) {
         const message = (e as Error)?.message ?? String(e);
